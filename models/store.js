@@ -4,7 +4,7 @@ const options = {
   promiseLib: promise
 };
 const pgp = require('pg-promise')(options);
-const connectionString = 'postgres://localhost:5432/mood_capture';
+const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/mood_capture';
 const db = pgp(connectionString);
 
 const addNewMood = (req,res,next) => {
