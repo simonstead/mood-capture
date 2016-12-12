@@ -2,24 +2,18 @@ extends layout
 
 block content
 
-  - var moods = ["Aggravated","Amused","Angry","Annoyed","Anxious","Apathetic","Bewildered","Blissful","Bouncy","Calm","Cheerful","Complacent","Confused","Content","Cranky","Crappy","Crazy","Curious","Cynical","Depressed","Devious","Disappointed","Discontent","Ditzy","Dreamy","Ecstatic","Energetic","Enraged","Enthralled","Envious","Excited","Flirty","Frustrated","Giddy","Giggly","Gloomy","Good","Grateful","Grumpy","Guilty","Happy","High","Hopeful","Impressed","Indifferent","Infuriated","Irate","Irritated","Jealous","Joyful","Jubilant","Lazy","Lethargic","Listless","Lonely","Loved","Mad","Melancholy","Mellow","Mischievous","Moody","Mournful","Numb","Optimistic","Peaceful","Pessimistic","Pleased","Rejected","Rejuvenated","Relaxed","Relieved","Restless","Sad","Satisfied","Shocked","Silly","Smart","Stressed","Surprised","Sympathetic","Thankful","Uncomfortable","Weird"];
-  - var n = 0;
-
   h1= title
-  form.moodForm(method="post")
+  form.moodForm(method="POST" action="/addNewMood")
     fieldset
       div
         label(for="mood") Mood:
-        select(name="mood")
-          each mood in moods
-            option(value=mood)= mood
+        input(name="mood" placeholder="What's your mood?" type="text")
       div
         label(for="intensity") Intensity:
-        select(name="intensity")
-          while n++ < 10
-            option(value=n)= n
+        input(name="intensity" placeholder="Enter a number" type="text")
       div
         label(for="description") Description:
-        textarea(name="description")
+        textarea(name="description" placeholder="How are you feeling?")
       div
-        a.btn(href="/addNewMood") Submit
+        - var click = "document.getElementsByTagName('form')[0].submit()"
+        a.btn(href="javascript:void(0)" onclick=click) Submit

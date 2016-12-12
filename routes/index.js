@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var store = require('../models/store');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -7,14 +8,11 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET log page. */
-router.get('/viewAll', function(req, res, next) {
-  res.render('log', { title: 'View All Moods'});
-});
+router.get('/viewAll', store.getAllMoods);
 
 /* POST add new mood */
-router.POST('/addNewMood', function(req, res, next) {
-  console.log(res.body);
-  res.render('index', { title: 'New mood added' });
-})
+router.post('/addNewMood', store.addNewMood);
+
+router.get('/deleteMood/:id', store.deleteMood);
 
 module.exports = router;

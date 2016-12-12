@@ -28,6 +28,7 @@ app.use("/bower_components/", express.static(path.join(__dirname, 'bower_compone
 app.use('/', index);
 app.use('/users', users);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -45,22 +46,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// pg db support
-var pg = require('pg');
-
-if (process.env.DATABASE_URL) {
-  pg.defaults.ssl = true;
-  pg.connect(process.env.DATABASE_URL, function(err, client) {
-    if (err) throw err;
-    console.log('Connected to postgres! Getting schemas...');
-
-    client
-      .query('SELECT table_schema,table_name FROM information_schema.tables;')
-      .on('row', function(row) {
-        console.log(JSON.stringify(row));
-      });
-  });
-}
 
 module.exports = app;

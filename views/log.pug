@@ -15,4 +15,13 @@ block content
       th Mood
       th Intensity
       th Description
+      th
     tbody
+      each item in data
+        tr
+          td= item.log.toLocaleString()
+          td= item.mood
+          td= item.intensity
+          td= item.description
+          td
+            a(href=`/deleteMood/${item.id}`) X
