@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  //- if logs
+  //-   each log in logs
+  //-     .log
+  //-       span.mood= log.mood
+  //-       span.intensity= log.intensity
+  //-       span.description= log.description
+  //-       span.timestamp= new Date()
+  table#logTable
+    thead
+      th Timestamp
+      th Mood
+      th Intensity
+      th Description
+    tbody
