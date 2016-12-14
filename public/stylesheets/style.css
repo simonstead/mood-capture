@@ -81,3 +81,23 @@ fieldset > * {
 .dynatable-active-page {
   background: #00a1cc;
 }
+
+
+input[type='text'], input[type='password'] {
+  width: 100%;
+  margin: 1em 0;
+  padding: 1rem;
+  font-size: 16px
+}
+
+input[type="submit"] {
+  height: 4em;
+  width: 9em;
+  font-size: 20px;
+}
+
+
+#logTable {
+  width: 60%;
+  margin: 2em 20%;
+}

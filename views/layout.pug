@@ -10,7 +10,18 @@ html
         span Add Mood
       a.viewAll(href="/viewAll")
         span View All
+      if !user
+        a.login(href="/login")
+          span Login
+        a.signup(href="/signup")
+          span Sign Up
+      else
+        p Hello #{user.username}
+        a.logout(href="/logout")
+          span Log Out
     .content
+      if error
+        h3= error
       block content
     script(type="text/javascript", src='/bower_components/jquery/dist/jquery.js')
     script(type="text/javascript", src='/bower_components/dynatable/jquery.dynatable.js')

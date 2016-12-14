@@ -1,35 +1,49 @@
-const promise = require('bluebird');
-const options = {
-  // Initialization Options
-  promiseLib: promise
-};
-const pgp = require('pg-promise')(options);
-const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/mood_capture';
-const db = pgp(connectionString);
+const db = require('./db');
 
-const addNewMood = (req,res,next) => {
-  let mood = req.body
-  mood["timestamp"] = new Date()
-  db.none('insert into moods (mood, intensity, description, log)' +
-      'values(${mood}, ${intensity}, ${description}, ${timestamp})', mood)
-  .then(getAllMoods(req,res,next))
-  .catch((err) => next(err))
-}
 
-const getAllMoods = (req, res, next) => {
-  db.any('select * from moods')
-  .then((data) => res.render('log', { title: 'View All Moods', data: data}))
-  .catch((err) => next(err))
-}
 
-const deleteMood = (req, res, next) => {
-  db.any('DELETE FROM moods WHERE moods.id = ${id}; select * from moods', req.params)
-  .then((data) => res.render('log', { title: 'View All Moods', data: data}))
-  .catch((err) => next(err))
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+
+
+
+
+const signup = (req, res) => {
+  var username = req.body.username
+  var password = req.body.password
+  var password2 = req.body.password2
+  console.log(username, password, password2);
+
+  if (!username || !password || !password2) {
+    req.flash('error', "Please, fill in all the fields.")
+    res.redirect('signup')
+  }
+
+  if (password !== password2) {
+    res.render('signup', { error: "Please, enter the same password twice."})
+  }
+
+  var salt = bcrypt.genSaltSync(10)
+  var hashedPassword = bcrypt.hashSync(password, salt)
+
+  var newUser = {
+    username: username,
+    salt: salt,
+    password: hashedPassword
+  }
+
+  db.none("INSERT INTO users (username,password, salt) VALUES (${username}, ${password}, ${salt})", newUser)
+  .then(function(user) {
+    db.any(`select * from moods WHERE username = '${username}'`, user)
+      .then((data) => res.render('log', { title: 'View All Moods', data: data, user: user}))
+      .catch((err) => next(err))
+  }).catch(function(error) {
+    res.render('signup', {
+      error: error
+    })
+  })
 }
 
 module.exports = {
-  addNewMood: addNewMood,
-  getAllMoods: getAllMoods,
-  deleteMood: deleteMood
+  signup: signup
 }

@@ -1,9 +1,10 @@
-ALTER TABLE users (
-  ID SERIAL PRIMARY KEY,
-  username VARCHAR,
-  password VARCHAR
-);
+-- CREATE TABLE users (
+--   ID SERIAL PRIMARY KEY,
+--   username VARCHAR,
+--   password VARCHAR,
+--   salt VARCHAR
+-- );
 
--- ALTER TABLE moods
---   ADD COLUMN
---     userid VARCHAR;
+ALTER TABLE users
+  ADD COLUMN
+    salt VARCHAR;

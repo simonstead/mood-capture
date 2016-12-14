@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1.title Sign up
+  form(action="/signup", method="POST")
+    label Username
+      input(type="text" name="username")
+    label Password
+      input(type="password" name="password")
+    label Repeat Password
+      input(type="password" name="password2")
+    input(type="submit" value="Sign up")
