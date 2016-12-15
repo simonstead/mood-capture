@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  form.moodForm(method="POST" action=`/updateMood/${mood.id}`)
+    fieldset
+      div
+        label(for="mood") Mood:
+        input(name="mood" value=mood.mood type="text")
+        - console.log(mood)
+      div
+        label(for="intensity") Intensity:
+        input(name="intensity" value=mood.intensity type="text")
+      div
+        label(for="description") Description:
+        textarea(name="description")= mood.description
+      div
+        - var click = "document.getElementsByTagName('form')[0].submit()"
+        a.btn(href="javascript:void(0)" onclick=click) Submit

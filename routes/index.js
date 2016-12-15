@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 
 /* GET log page. */
 router.get('/viewAll', ensureAuthenticated, (req, res, next) => {
-  db.any(`select * from moods WHERE username = '${req.user.username}'`)
+  db.any('select * from moods WHERE username = ${username}', req.user)
     .then((data) => {
       if (data) {
         res.render('log', { title: 'View All Moods', user: req.user, data: data})
@@ -35,10 +35,16 @@ router.get('/viewAll', ensureAuthenticated, (req, res, next) => {
 
 /* POST add new mood */
 const addNewMood = (req,res,next) => {
-  db.none(`
-    insert into moods (mood, intensity, description, log, username)
-    values('${req.body.mood}', '${req.body.intensity}', '${req.body.description}',
-    now(), '${req.user.username}')`)
+  const query = 'insert into moods (mood, intensity, description, log, username)' +
+    'values(${mood}, ${intensity}, ${description}, ' +
+    'now(), ${username})';
+  const mood = {
+    mood: req.body.mood,
+    intensity: req.body.intensity,
+    description: req.body.description,
+    username: req.user.username
+  }
+  db.none(query, mood)
   .then(() => res.redirect('/viewAll'))
   .catch((err) => next(err))
 }
@@ -46,12 +52,40 @@ router.post('/addNewMood', ensureAuthenticated, addNewMood)
 
 
 const deleteMood = (req, res, next) => {
-  db.any(`DELETE FROM moods WHERE moods.id = ${req.params.id}`)
+  db.any('DELETE FROM moods WHERE moods.id = ${id}', req.params)
   .then(() => res.redirect('/viewAll'))
   .catch((err) => next(err))
 }
-router.get('/deleteMood/:id', deleteMood)
+router.get('/deleteMood/:id', ensureAuthenticated, deleteMood)
 
+
+const updateMood = (req, res, next) => {
+  const params = {
+    mood: req.body.mood,
+    intensity: req.body.intensity,
+    description: req.body.description,
+    id: req.params.id,
+    username: req.user.username
+  }
+  const sql = 'UPDATE moods SET mood = ${mood}, intensity = ${intensity}, description = ${description}'
+  + 'WHERE id = ${id} AND username = ${username}';
+  db.any(sql, params)
+  .then(() => res.redirect('/viewAll'))
+  .catch((err) => next(err))
+}
+router.post('/updateMood/:id', ensureAuthenticated, updateMood)
+
+router.get('/updateMood/:id', ensureAuthenticated,
+  function (req, res, next) {
+    db.one('SELECT * FROM moods WHERE moods.id = ${id}', req.params)
+    .then((mood) => res.render('update', {
+          title: "Update Mood",
+          mood: mood,
+          user: req.user
+        }))
+    .catch((err) => next(err))
+  }
+)
 
 router.get('/login', (req,res) => res.render('login', {title: "Login", user: req.user }))
 router.post('/login', passport.authenticate('local', { successRedirect: 'viewAll', failureRedirect: '/' }))

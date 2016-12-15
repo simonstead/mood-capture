@@ -13,6 +13,7 @@ body {
   margin: 0;
   padding: 0;
   font: 16px "Avenir-Regular", Helvetica, Arial, sans-serif;
+  width: 100%;
 }
 
 .content {
@@ -25,6 +26,7 @@ nav {
   height: 3em;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 nav a {
@@ -97,7 +99,30 @@ input[type="submit"] {
 }
 
 
-#logTable {
-  width: 60%;
-  margin: 2em 20%;
+@media only screen and (max-width: 700px) {
+  body {
+    font-size: 12px;
+    padding: 0;
+  }
+  fieldset {
+    padding: 0.5em;
+    margin: 0;
+    border: none;
+  }
+  form {
+    margin: 0
+  }
+  #logTable {
+    margin: 2em 0;
+    width: 100%;
+  }
+  #logTable td, #logTable th {
+    padding: 0
+  }
+}
+
+tr td:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
