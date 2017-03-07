@@ -10,9 +10,27 @@ block content
       div
         label(for="intensity") Intensity:
         input(name="intensity" placeholder="Enter a number" type="text")
+      //- div
+      //-   label(for="description") Description:
+      //-   textarea(name="description" placeholder="How are you feeling?")
       div
-        label(for="description") Description:
-        textarea(name="description" placeholder="How are you feeling?")
+        label(for="situation") What was the situation?
+        textarea(name="situation")
+      div
+        label(for="thoughts") What were your thoughts at the time?
+        textarea(name="thoughts")
+      div
+        label(for="emotions") What were feeling emotionally?
+        textarea(name="emotions")
+      div
+        label(for="physical") What were feeling physically?
+        textarea(name="physical")
+      div
+        label(for="actions") What action did you take?
+        textarea(name="actions")
+      div
+        label(for="memes") What meme best describes you right now? (url)
+        input(type="text", name="memes")
       div
         - var click = "document.getElementsByTagName('form')[0].submit()"
         a.btn(href="javascript:void(0)" onclick=click) Submit

@@ -15,6 +15,12 @@ block content
       th Mood
       th Intensity
       th Description
+      th Situation
+      th Thoughts
+      th Emotions
+      th Physical
+      th Actions
+      th Meme
       th
     tbody
       each item in data
@@ -23,6 +29,12 @@ block content
           td= item.mood
           td= item.intensity
           td= item.description
+          td= item.situation
+          td= item.thoughts
+          td= item.emotions
+          td= item.physical
+          td= item.actions
+          td= item.memes
           td
             a(href=`/updateMood/${item.id}`) Edit
             a(href=`/deleteMood/${item.id}`) Delete

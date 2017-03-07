@@ -13,15 +13,35 @@
 --   username VARCHAR
 -- );
 
-ALTER TABLE moods
-  ADD COLUMN username VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN username VARCHAR;
 
-CREATE TABLE IF NOT EXISTS users (
-  ID SERIAL PRIMARY KEY,
-  username VARCHAR,
-  password VARCHAR,
-  salt VARCHAR
-);
+-- 
+--
+-- ALTER TABLE moods
+--   ADD COLUMN "situation" VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN "thoughts" VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN "emotions" VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN "physical" VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN "actions" VARCHAR;
+-- ALTER TABLE moods
+--   ADD COLUMN "memes" VARCHAR;
+--
+
+
+
+
+--
+-- CREATE TABLE IF NOT EXISTS users (
+--   ID SERIAL PRIMARY KEY,
+--   username VARCHAR,
+--   password VARCHAR,
+--   salt VARCHAR
+-- );
 
 -- CREATE TABLE IF NOT EXISTS "session" (
 --   "sid" varchar NOT NULL COLLATE "default",

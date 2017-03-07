@@ -12,8 +12,23 @@ block content
         label(for="intensity") Intensity:
         input(name="intensity" value=mood.intensity type="text")
       div
-        label(for="description") Description:
-        textarea(name="description")= mood.description
+        label(for="situation") What was the situation?
+        textarea(name="situation")=mood.situation
+      div
+        label(for="thoughts") What were your thoughts at the time?
+        textarea(name="thoughts")=mood.thoughts
+      div
+        label(for="emotions") What were feeling emotionally?
+        textarea(name="emotions")=mood.emotions
+      div
+        label(for="physical") What were feeling physically?
+        textarea(name="physical")=mood.physical
+      div
+        label(for="actions") What action did you take?
+        textarea(name="actions")=mood.actions
+      div
+        label(for="memes") What meme best describes you right now? (url)
+        input(type="text", name="memes", value=mood.memes)
       div
         - var click = "document.getElementsByTagName('form')[0].submit()"
         a.btn(href="javascript:void(0)" onclick=click) Submit

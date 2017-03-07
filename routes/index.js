@@ -35,14 +35,19 @@ router.get('/viewAll', ensureAuthenticated, (req, res, next) => {
 
 /* POST add new mood */
 const addNewMood = (req,res,next) => {
-  const query = 'insert into moods (mood, intensity, description, log, username)' +
-    'values(${mood}, ${intensity}, ${description}, ' +
-    'now(), ${username})';
+  const query = 'insert into moods (mood, intensity, description, log, username, situation, thoughts, emotions, physical, actions, memes)' +
+    'values(${mood}, ${intensity}, ${description}, now(), ${username}, ${situation}, ${thoughts}, ${emotions}, ${physical}, ${actions}, ${memes})';
   const mood = {
     mood: req.body.mood,
     intensity: req.body.intensity,
     description: req.body.description,
-    username: req.user.username
+    username: req.user.username,
+    situation: req.body.situation,
+    thoughts: req.body.thoughts,
+    emotions: req.body.emotions,
+    physical: req.body.physical,
+    actions: req.body.actions,
+    memes: req.body.memes
   }
   db.none(query, mood)
   .then(() => res.redirect('/viewAll'))
@@ -65,10 +70,17 @@ const updateMood = (req, res, next) => {
     intensity: req.body.intensity,
     description: req.body.description,
     id: req.params.id,
-    username: req.user.username
+    username: req.user.username,
+    situation: req.body.situation,
+    thoughts: req.body.thoughts,
+    emotions: req.body.emotions,
+    physical: req.body.physical,
+    actions: req.body.actions,
+    memes: req.body.memes
   }
-  const sql = 'UPDATE moods SET mood = ${mood}, intensity = ${intensity}, description = ${description}'
-  + 'WHERE id = ${id} AND username = ${username}';
+  const sql = 'UPDATE moods SET mood = ${mood}, intensity = ${intensity}, description = ${description}, situation = ${situation}, '
+  + 'thoughts = ${thoughts}, emotions = ${emotions}, physical = ${physical}, actions = ${actions}, memes = ${memes}'
+  + ' WHERE id = ${id} AND username = ${username}';
   db.any(sql, params)
   .then(() => res.redirect('/viewAll'))
   .catch((err) => next(err))
