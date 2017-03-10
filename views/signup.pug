@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1.title Sign up
+  if validationErrors
+    p.error= validationErrors
   form(action="/signup", method="POST")
     label Username
       input(type="text" name="username")
