@@ -21,6 +21,8 @@ block content
       th Physical
       th Actions
       th Meme
+      th Alternative Explanations
+      th Other comments
       th
     tbody
       each item in data
@@ -35,6 +37,8 @@ block content
           td= item.physical
           td= item.actions
           td= item.memes
+          td= item.alternative
+          td= item.other
           td
             a(href=`/updateMood/${item.id}`) Edit
             a(href=`/deleteMood/${item.id}`) Delete

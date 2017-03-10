@@ -32,5 +32,11 @@ block content
         label(for="memes") What meme best describes you right now? (url)
         input(type="text", name="memes")
       div
+        label(for="alternative") Alternative explanations
+        textarea(name="alternative")
+      div
+        label(for="other") Other comments
+        textarea(name="other")
+      div
         - var click = "document.getElementsByTagName('form')[0].submit()"
         a.btn(href="javascript:void(0)" onclick=click) Submit
